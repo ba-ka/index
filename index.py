@@ -17,7 +17,7 @@ def redir(name):
     if name == "ws":
         return redirect("https://discord.gg/EsqRxP2")
 
-    if name == "gip-roadmap	":
+    if name == "gip-roadmap":
         return redirect("https://trello.com/b/abue61dQ.html")
 
     if name == "gip":
