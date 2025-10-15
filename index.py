@@ -1,38 +1,38 @@
 from flask import Flask, redirect
- 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 app = Flask(__name__)
- 
-@app.route('/')
+
+link_lists = {
+    "discord": "https://discord.gg/pqD6hEj",
+    "github": "https://github.com/ba-ka",
+    "ws": "https://discord.gg/EsqRxP2",
+    "gip-roadmap": "https://trello.com/b/abue61dQ.html",
+    "gip": "https://www.roblox.com/games/5253868577/ghost-id-project",
+    "ah0": "https://ah0.ba-ka.org/user/baka",
+    "mg": "https://www.roblox.com/games/5111122533/maze-games",
+    "roblox": "https://www.roblox.com/groups/5346197/ba-ka",
+    "steam": "https://steamcommunity.com/groups/ba-ka-org",
+}
+x_ba_ka = "https://x.ba-ka.org"
+port = int(os.getenv("PORT", "3000"))
+
+
+@app.route("/")
 def index():
-    return redirect("https://x.ba-ka.org")
+    return redirect(x_ba_ka)
 
-@app.route('/<name>')
-def redir(name):
-    if name == "discord":
-        return redirect("https://discord.gg/pqD6hEj")
-    
-    if name == "github":
-        return redirect("https://github.com/ba-ka")
 
-    if name == "ws":
-        return redirect("https://discord.gg/EsqRxP2")
+@app.route("/<name>")
+def redir(name: str):
+    if name in link_lists.keys():
+        return redirect(link_lists[name])
 
-    if name == "gip-roadmap":
-        return redirect("https://trello.com/b/abue61dQ.html")
+    return redirect(x_ba_ka)
 
-    if name == "gip":
-        return redirect("https://www.roblox.com/games/5253868577/ghost-id-project")
 
-    if name == "ah0":
-        return redirect("https://ah0.ba-ka.org/user/baka")
-
-    if name == "mg":
-        return redirect("https://www.roblox.com/games/5111122533/maze-games")
-
-    if name == "roblox":
-        return redirect("https://www.roblox.com/groups/5346197/ba-ka")
-
-    if name == "steam":
-        return redirect("https://steamcommunity.com/groups/ba-ka-org")
-
-    return redirect("https://x.ba-ka.org")
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=port, debug=True)
